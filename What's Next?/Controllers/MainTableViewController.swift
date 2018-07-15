@@ -11,26 +11,17 @@ import UIKit
 class MainTableViewController: UITableViewController {
     
     var itemArray = [Item]()
+    
+    //Data storing plist created
     let dataFilePath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first?.appendingPathComponent("Items.plist")
     
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        
-        
-        let newItem = Item(title: "Study Firebase")
-        itemArray.append(newItem)
-        
-        let newItem2 = Item(title: "Study Firebase")
-        itemArray.append(newItem2)
-        
-        let newItem3 = Item(title: "Study Firebase")
-        itemArray.append(newItem3)
-        
-        
 
-
+        //Decodes items from plist
+        loadItems()
+    
     }
 
 
@@ -98,6 +89,7 @@ class MainTableViewController: UITableViewController {
     
     //Encodes data into new plist
     func saveItems() {
+        
         let encoder = PropertyListEncoder()
         
         do {
@@ -105,11 +97,25 @@ class MainTableViewController: UITableViewController {
             try data.write(to: dataFilePath!)
         } catch {
             print("Error encoding array,\(error)")
-            
         }
         
         self.tableView.reloadData()
+    }
+    
+    // Decodes data from plist
+    func loadItems() {
+        
+        guard let data = try? Data(contentsOf: dataFilePath!) else {return}
+        let decoder = PropertyListDecoder()
+        
+        do {
+        itemArray = try decoder.decode([Item].self, from: data)
+        } catch {
+            
         }
+        
+            
+    }
     
    
 
