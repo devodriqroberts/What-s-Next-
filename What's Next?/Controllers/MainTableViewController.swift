@@ -11,11 +11,14 @@ import UIKit
 class MainTableViewController: UITableViewController {
     
     var itemArray = [Item]()
+    let dataFilePath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first?.appendingPathComponent("Items.plist")
     
-    let defaults = UserDefaults.standard
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        
+        
         let newItem = Item(title: "Study Firebase")
         itemArray.append(newItem)
         
@@ -56,7 +59,7 @@ class MainTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         itemArray[indexPath.row].isDone = !itemArray[indexPath.row].isDone
-        
+        saveItems()
         tableView.reloadData()
         tableView.deselectRow(at: indexPath, animated: true)
         
@@ -78,10 +81,7 @@ class MainTableViewController: UITableViewController {
             // Add new items to array
             self.itemArray.append(newItem)
             
-            // Saves newly add items to the array
-            self.defaults.set(self.itemArray, forKey: "TodoListArray")
-            
-            self.tableView.reloadData()
+            self.saveItems()
         }
         
         alert.addTextField { (alertTextFeild) in
@@ -94,10 +94,22 @@ class MainTableViewController: UITableViewController {
         present(alert, animated: true, completion: nil)
     }
     
-    //MARK: - Checks if items
-    func checkForDone() {
+    //MARK: - Model manipulation methods
+    
+    //Encodes data into new plist
+    func saveItems() {
+        let encoder = PropertyListEncoder()
         
-    }
+        do {
+            let data = try encoder.encode(itemArray)
+            try data.write(to: dataFilePath!)
+        } catch {
+            print("Error encoding array,\(error)")
+            
+        }
+        
+        self.tableView.reloadData()
+        }
     
    
 
