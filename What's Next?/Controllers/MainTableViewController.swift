@@ -10,14 +10,12 @@ import UIKit
 
 class MainTableViewController: UITableViewController {
     
-    let itemArray = ["Find Mike", "Study Firebase", "Study Alamofire"]
+    var itemArray = ["Find Mike", "Study Firebase", "Study Alamofire"]
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
 
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
 
 
@@ -49,7 +47,32 @@ class MainTableViewController: UITableViewController {
             tableView.cellForRow(at: indexPath)?.accessoryType = .checkmark
         }
         tableView.deselectRow(at: indexPath, animated: true)
+    }
+    
+    //MARK: - Add new item
+    
+    @IBAction func addNewItem(_ sender: UIBarButtonItem) {
         
+        var textField = UITextField()
+        
+        let alert = UIAlertController(title: "Add New Next Up Item", message: "", preferredStyle: .alert)
+        
+        let action = UIAlertAction(title: "Add Item", style: .default) { (action) in
+            
+            guard let textFieldText = textField.text else {return}
+            self.itemArray.append(textFieldText)
+            
+            self.tableView.reloadData()
+        }
+        
+        alert.addTextField { (alertTextFeild) in
+            alertTextFeild.placeholder = "Create new item"
+            textField = alertTextFeild
+        }
+        
+        alert.addAction(action)
+        
+        present(alert, animated: true, completion: nil)
     }
     
    
