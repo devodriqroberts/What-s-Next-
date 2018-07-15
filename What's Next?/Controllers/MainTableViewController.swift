@@ -10,10 +10,22 @@ import UIKit
 
 class MainTableViewController: UITableViewController {
     
-    var itemArray = ["Find Mike", "Study Firebase", "Study Alamofire"]
+    var itemArray = [Item]()
+    
+    let defaults = UserDefaults.standard
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        let newItem = Item(title: "Study Firebase")
+        itemArray.append(newItem)
+        
+        let newItem2 = Item(title: "Study Firebase")
+        itemArray.append(newItem2)
+        
+        let newItem3 = Item(title: "Study Firebase")
+        itemArray.append(newItem3)
+        
+        
 
 
     }
@@ -32,21 +44,22 @@ class MainTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ToDoItemCell", for: indexPath)
-        cell.textLabel?.text = itemArray[indexPath.row]
+        let item = itemArray[indexPath.row]
+        cell.textLabel?.text = item.title
+        
+        cell.accessoryType = item.isDone ? .checkmark : .none
+        
         return cell
     }
     
     //MARK: - TableView Delegate Methods
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        itemArray[indexPath.row].isDone = !itemArray[indexPath.row].isDone
         
-        // Add checkmark functionality to list table view
-        if tableView.cellForRow(at: indexPath)?.accessoryType == .checkmark {
-        tableView.cellForRow(at: indexPath)?.accessoryType = .none
-        } else {
-            tableView.cellForRow(at: indexPath)?.accessoryType = .checkmark
-        }
+        tableView.reloadData()
         tableView.deselectRow(at: indexPath, animated: true)
+        
     }
     
     //MARK: - Add new item
@@ -60,7 +73,13 @@ class MainTableViewController: UITableViewController {
         let action = UIAlertAction(title: "Add Item", style: .default) { (action) in
             
             guard let textFieldText = textField.text else {return}
-            self.itemArray.append(textFieldText)
+            let newItem = Item(title: textFieldText)
+            
+            // Add new items to array
+            self.itemArray.append(newItem)
+            
+            // Saves newly add items to the array
+            self.defaults.set(self.itemArray, forKey: "TodoListArray")
             
             self.tableView.reloadData()
         }
@@ -73,6 +92,11 @@ class MainTableViewController: UITableViewController {
         alert.addAction(action)
         
         present(alert, animated: true, completion: nil)
+    }
+    
+    //MARK: - Checks if items
+    func checkForDone() {
+        
     }
     
    
