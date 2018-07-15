@@ -8,20 +8,20 @@
 
 /* Begin PBXBuildFile section */
 		2559B68520FAD69300FA692A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2559B68420FAD69300FA692A /* AppDelegate.swift */; };
-		2559B68720FAD69300FA692A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2559B68620FAD69300FA692A /* ViewController.swift */; };
 		2559B68A20FAD69300FA692A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2559B68820FAD69300FA692A /* Main.storyboard */; };
 		2559B68C20FAD69500FA692A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2559B68B20FAD69500FA692A /* Assets.xcassets */; };
 		2559B68F20FAD69500FA692A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2559B68D20FAD69500FA692A /* LaunchScreen.storyboard */; };
+		2559B69720FAD76400FA692A /* MainTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2559B69620FAD76400FA692A /* MainTableViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		2559B68120FAD69300FA692A /* What's Next?.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "What's Next?.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2559B68420FAD69300FA692A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		2559B68620FAD69300FA692A /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		2559B68920FAD69300FA692A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		2559B68B20FAD69500FA692A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		2559B68E20FAD69500FA692A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		2559B69020FAD69500FA692A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		2559B69620FAD76400FA692A /* MainTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTableViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,14 +54,38 @@
 		2559B68320FAD69300FA692A /* What's Next? */ = {
 			isa = PBXGroup;
 			children = (
-				2559B68420FAD69300FA692A /* AppDelegate.swift */,
-				2559B68620FAD69300FA692A /* ViewController.swift */,
+				2559B69A20FAD7AA00FA692A /* Models */,
+				2559B69920FAD79F00FA692A /* Controllers */,
+				2559B69820FAD78F00FA692A /* Supporting Files */,
 				2559B68820FAD69300FA692A /* Main.storyboard */,
 				2559B68B20FAD69500FA692A /* Assets.xcassets */,
-				2559B68D20FAD69500FA692A /* LaunchScreen.storyboard */,
 				2559B69020FAD69500FA692A /* Info.plist */,
 			);
 			path = "What's Next?";
+			sourceTree = "<group>";
+		};
+		2559B69820FAD78F00FA692A /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				2559B68420FAD69300FA692A /* AppDelegate.swift */,
+				2559B68D20FAD69500FA692A /* LaunchScreen.storyboard */,
+			);
+			path = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		2559B69920FAD79F00FA692A /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				2559B69620FAD76400FA692A /* MainTableViewController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		2559B69A20FAD7AA00FA692A /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -135,7 +159,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2559B68720FAD69300FA692A /* ViewController.swift in Sources */,
+				2559B69720FAD76400FA692A /* MainTableViewController.swift in Sources */,
 				2559B68520FAD69300FA692A /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
