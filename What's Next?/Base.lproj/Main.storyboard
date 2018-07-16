@@ -9,7 +9,54 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--What's Next?-->
+        <!--What's Next-->
+        <scene sceneID="GX4-19-sT5">
+            <objects>
+                <tableViewController id="ZmO-wJ-x6r" customClass="CategoryViewController" customModule="What_s_Next_" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="8HB-jt-KoY">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <searchBar key="tableHeaderView" contentMode="redraw" placeholder="Search For Category..." id="gdd-Ez-4nP">
+                            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                            <textInputTraits key="textInputTraits"/>
+                            <connections>
+                                <outlet property="delegate" destination="ZmO-wJ-x6r" id="aP0-B6-zXo"/>
+                            </connections>
+                        </searchBar>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="CategoryCell" id="tV2-eo-JIs">
+                                <rect key="frame" x="0.0" y="72" width="375" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="tV2-eo-JIs" id="btg-jS-Y2v">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="ZmO-wJ-x6r" id="fGv-GZ-uh4"/>
+                            <outlet property="delegate" destination="ZmO-wJ-x6r" id="oMD-GD-Zd6"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="What's Next" id="eap-yd-zpm">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="vAD-5c-M1s">
+                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <connections>
+                                <action selector="addButtonPressed:" destination="ZmO-wJ-x6r" id="9FI-Nv-143"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <segue destination="UiK-Q9-F0s" kind="show" identifier="goToItems" id="Ayq-Ll-B1T"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="O7d-Pc-gST" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="634" y="125"/>
+        </scene>
+        <!--Up Next-->
         <scene sceneID="Vak-om-Jnr">
             <objects>
                 <tableViewController id="UiK-Q9-F0s" customClass="MainTableViewController" customModule="What_s_Next_" customModuleProvider="target" sceneMemberID="viewController">
@@ -17,9 +64,17 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <searchBar key="tableHeaderView" contentMode="redraw" placeholder="Search For Item..." id="cwq-Le-VA9">
+                            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                            <textInputTraits key="textInputTraits"/>
+                            <connections>
+                                <outlet property="delegate" destination="UiK-Q9-F0s" id="rNn-nr-H7i"/>
+                            </connections>
+                        </searchBar>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ToDoItemCell" id="94b-Am-3n9">
-                                <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                <rect key="frame" x="0.0" y="72" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="94b-Am-3n9" id="Qi3-t1-ito">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
@@ -32,7 +87,7 @@
                             <outlet property="delegate" destination="UiK-Q9-F0s" id="rQx-k6-NKA"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="What's Next?" id="ecw-AC-cgy">
+                    <navigationItem key="navigationItem" title="Up Next" id="ecw-AC-cgy">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="ysD-8O-5Y1">
                             <color key="tintColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <connections>
@@ -43,7 +98,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zhM-PV-rcB" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1055" y="128"/>
+            <point key="canvasLocation" x="1361" y="125"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="QCn-YB-xUn">
@@ -60,12 +115,12 @@
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="UiK-Q9-F0s" kind="relationship" relationship="rootViewController" id="owo-gX-Yo5"/>
+                        <segue destination="ZmO-wJ-x6r" kind="relationship" relationship="rootViewController" id="EAI-H5-0C3"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SZF-d6-DEO" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="272.80000000000001" y="128.18590704647679"/>
+            <point key="canvasLocation" x="-94" y="126"/>
         </scene>
     </scenes>
 </document>

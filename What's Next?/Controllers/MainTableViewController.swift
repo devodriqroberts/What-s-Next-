@@ -7,20 +7,26 @@
 //
 
 import UIKit
+import  CoreData
 
 class MainTableViewController: UITableViewController {
     
     var itemArray = [Item]()
     
-    //Data storing plist created
-    let dataFilePath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first?.appendingPathComponent("Items.plist")
+    var selectedCategory: Category? {
+        didSet {
+            loadItems()
+        }
+    }
+    
+    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        print(FileManager.default.urls(for: .documentDirectory, in: .userDomainMask))
 
-        //Decodes items from plist
-        loadItems()
     
     }
 
@@ -60,14 +66,17 @@ class MainTableViewController: UITableViewController {
     
     @IBAction func addNewItem(_ sender: UIBarButtonItem) {
         
+        //UIALert with text field
         var textField = UITextField()
-        
         let alert = UIAlertController(title: "Add New Next Up Item", message: "", preferredStyle: .alert)
-        
         let action = UIAlertAction(title: "Add Item", style: .default) { (action) in
-            
             guard let textFieldText = textField.text else {return}
-            let newItem = Item(title: textFieldText)
+            
+            //Creates new Item entity
+            let newItem = Item(context: self.context)
+            newItem.isDone = false
+            newItem.parentCategory = self.selectedCategory
+            newItem.title = textFieldText
             
             // Add new items to array
             self.itemArray.append(newItem)
@@ -87,38 +96,82 @@ class MainTableViewController: UITableViewController {
     
     //MARK: - Model manipulation methods
     
-    //Encodes data into new plist
+    // Saves Item entities to context
     func saveItems() {
-        
-        let encoder = PropertyListEncoder()
-        
+
         do {
-            let data = try encoder.encode(itemArray)
-            try data.write(to: dataFilePath!)
+            try context.save()
         } catch {
-            print("Error encoding array,\(error)")
+            print("Error saving context \(error)")
         }
         
         self.tableView.reloadData()
     }
     
-    // Decodes data from plist
-    func loadItems() {
+    //Loads Item entities from context
+    func loadItems(with request: NSFetchRequest<Item> = Item.fetchRequest(), predicate: NSPredicate? = nil) {
         
-        guard let data = try? Data(contentsOf: dataFilePath!) else {return}
-        let decoder = PropertyListDecoder()
+        let categoryPredicate = NSPredicate(format: "parentCategory.name MATCHES %@", selectedCategory!.name!)
+        request.predicate = predicate
         
-        do {
-        itemArray = try decoder.decode([Item].self, from: data)
-        } catch {
-            
+        if let additionalPredicate = predicate {
+            request.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [categoryPredicate, additionalPredicate])
+        } else {
+            request.predicate = categoryPredicate
         }
         
-            
+
+        do {
+            itemArray = try context.fetch(request)
+        } catch {
+            print("Error fetching data from context \(error)")
+        }
+        
+        tableView.reloadData()
+
     }
     
-   
-
-   
+    
 
 }
+
+//MARK: - UISearchBar Delegate Methods
+extension MainTableViewController: UISearchBarDelegate {
+    
+    //UISearchBar Delegate Methods
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        let request: NSFetchRequest<Item> = Item.fetchRequest()
+        
+        let predicate = NSPredicate(format: "title CONTAINS[cd] %@", searchBar.text!)
+    
+        request.sortDescriptors = [NSSortDescriptor(key: "title", ascending: true)]
+        
+        loadItems(with: request, predicate: predicate)
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        if searchBar.text?.count == 0 {
+            loadItems()
+            
+            DispatchQueue.main.async {
+                searchBar.resignFirstResponder()
+            }
+        }
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
